@@ -3,21 +3,34 @@ import { useEffect, useState } from "react";
 import styles from "@/components/ProductCard.module.css";
 import { getProducts } from "@/hooks/useFavorites";
 import { SearchBar } from "./SearchBar";
-import { Products } from "@/types/product";
+import { Product, ProductsResponse } from "@/types/product";
 
 export const ProductCard = () => {
-    const [products, setProducts] = useState<Products[]>([]);
-    const [filtered, setFiltered] = useState<Products[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [filtered, setFiltered] = useState<Product[]>([]);
+    const [listPage, setlistPage] = useState<ProductsResponse>();
+    const [page, setPage] = useState(1);
+
+
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getProducts();
-            setProducts(data);
-            setFiltered(data); // começa mostrando tudo
+            const data = await getProducts(page);
+            setProducts(data.products);
+            setFiltered(data.products);
+            setlistPage(data);
+
+
         };
 
         fetchData();
-    }, []);
+    }, [page]);
+
+
+    const totalPages = listPage ? Math.ceil(listPage.total / listPage.limit) : 0;
+
+    console.log(totalPages);
+
 
     return (
         <div>
@@ -26,21 +39,57 @@ export const ProductCard = () => {
             <div className={styles.container}>
 
                 {
+
                     filtered.length > 0 ? (
-                        filtered.map((product) => (
-                            <div key={product.id} className={styles.productCard}>
-                                <h2 className={styles.title}>{product.title}</h2>
-                                <p className={styles.description}>{product.description}</p>
-                                <p className={styles.category}>{product.category}</p>
-                                {/* <img src={product.image} alt={product.title} /> */}
-                                <p className={styles.price}>R$ {product.price}</p>
+
+                        filtered.map((items) => (
+                            <div key={items.id} className={styles.productCard}>
+                                <h2 className={styles.title}>{items.title}</h2>
+                                <p className={styles.description}>{items.description}</p>
+                                <p className={styles.category}>{items.category}</p>
+                                <img src={items.images[0]} alt={items.images[0]} />
+                                <p className={styles.price}>R$ {items.price}</p>
                             </div>
-                        ))) : (
+
+                        )
+
+                        )) : (
                         <p>Nenhum produto encontrado</p>
                     )
                 }
 
             </div>
+
+            <div className={styles.pagination}>
+                <button
+                    disabled={page === 1}
+                    onClick={() => setPage(page - 1)}
+                >
+                    Anterior
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setPage(i + 1)}
+                        className={page === i + 1 ? styles.active : ""}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+
+                <button
+                    disabled={page === totalPages}
+                    onClick={() => {
+                        if (page < totalPages) {
+                            setPage((p) => p + 1);
+                        }
+                    }}
+                >
+                    Próxima
+                </button>
+            </div>
+
         </div>
     );
 };

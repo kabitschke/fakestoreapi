@@ -1,8 +1,48 @@
-export type Products = {
+export type Review = {
+    rating: number;
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+};
+
+export type Product = {
     id: number;
     title: string;
-    price: number;
     description: string;
     category: string;
-    image: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    tags: string[];
+    brand: string;
+    sku: string;
+    weight: number;
+    dimensions: {
+        width: number;
+        height: number;
+        depth: number;
+    };
+    warrantyInformation: string;
+    shippingInformation: string;
+    availabilityStatus: string;
+    reviews: Review[];
+    returnPolicy: string;
+    minimumOrderQuantity: number;
+    meta: {
+        createdAt: string;
+        updatedAt: string;
+        barcode: string;
+        qrCode: string;
+    };
+    images: string[];
+    thumbnail: string;
+};
+
+export type ProductsResponse = {
+    products: Product[];
+    total: number;
+    skip: number;
+    limit: number;
 };
