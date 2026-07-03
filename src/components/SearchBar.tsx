@@ -1,12 +1,12 @@
 'use client'
 import styles from '@/components/SearchBar.module.css';
-import { Products } from '@/types/product';
+import { Product } from '@/types/product';
 import { useState } from 'react';
 
 
 type Props = {
-    products: Products[];
-    setFiltered: (products: Products[]) => void;
+    products: Product[];
+    setFiltered: (products: Product[]) => void;
 };
 
 export const SearchBar = ({ products, setFiltered }: Props) => {
@@ -39,23 +39,6 @@ export const SearchBar = ({ products, setFiltered }: Props) => {
 
             </div>
 
-            {/* {
-                query.trim() !== '' && (
-                    busca.length > 0 ? (
-                        busca.map((product) => (
-                            <div key={product.id} className={styles.productCard}>
-                                <h2 className={styles.title}>{product.title}</h2>
-                                <p className={styles.description}>{product.description}</p>
-                                <p className={styles.category}>{product.category}</p>
-                                <img src={product.image} alt={product.title} />
-                                <p className={styles.price}>R$ {product.price} </p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Nenhum produto encontrado</p>
-                    )
-                )
-            } */}
 
 
         </div>

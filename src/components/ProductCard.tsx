@@ -26,10 +26,10 @@ export const ProductCard = () => {
         fetchData();
     }, [page]);
 
+    const limit = 30;
+    const totalPages = listPage ? Math.ceil(listPage.total / limit) : 0;
 
-    const totalPages = listPage ? Math.ceil(listPage.total / listPage.limit) : 0;
 
-    console.log(totalPages);
 
 
     return (

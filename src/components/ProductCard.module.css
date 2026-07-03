@@ -53,3 +53,21 @@
 .category {
     color: #7e7a7a;
 }
+
+.active {
+    background-color: #3DABEF;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    gap: 5px;
+}
+
+.pagination button {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: none;
+}

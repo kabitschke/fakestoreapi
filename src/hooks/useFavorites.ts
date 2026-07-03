@@ -1,5 +1,3 @@
-import { ProductsResponse } from "@/types/product";
-
 export const getProducts = async (
     page: number,
     limit = 30
