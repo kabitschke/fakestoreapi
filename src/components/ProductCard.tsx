@@ -7,57 +7,43 @@ import { Product, ProductsResponse } from "@/types/product";
 
 export const ProductCard = () => {
     const [products, setProducts] = useState<Product[]>([]);
-    const [filtered, setFiltered] = useState<Product[]>([]);
-    const [listPage, setlistPage] = useState<ProductsResponse>();
+    const [listPage, setListPage] = useState<ProductsResponse>();
     const [page, setPage] = useState(1);
+    const [search, setSearch] = useState("");
 
-
+    const limit = 30;
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getProducts(page);
+            const data = await getProducts(page, limit, search);
             setProducts(data.products);
-            setFiltered(data.products);
-            setlistPage(data);
-
-
+            setListPage(data);
         };
 
         fetchData();
-    }, [page]);
+    }, [page, search]);
 
-    const limit = 30;
-    const totalPages = listPage ? Math.ceil(listPage.total / limit) : 0;
-
-
-
+    const totalPages = listPage
+        ? Math.ceil(listPage.total / limit)
+        : 0;
 
     return (
         <div>
-            <SearchBar products={products} setFiltered={setFiltered} />
+            <SearchBar setSearch={setSearch} setPage={setPage} />
 
             <div className={styles.container}>
-
-                {
-
-                    filtered.length > 0 ? (
-
-                        filtered.map((items) => (
-                            <div key={items.id} className={styles.productCard}>
-                                <h2 className={styles.title}>{items.title}</h2>
-                                <p className={styles.description}>{items.description}</p>
-                                <p className={styles.category}>{items.category}</p>
-                                <img src={items.images[0]} alt={items.images[0]} />
-                                <p className={styles.price}>R$ {items.price}</p>
-                            </div>
-
-                        )
-
-                        )) : (
-                        <p>Nenhum produto encontrado</p>
-                    )
-                }
-
+                {products.length > 0 ? (
+                    products.map((item) => (
+                        <div key={item.id} className={styles.productCard}>
+                            <h2>{item.title}</h2>
+                            <p>{item.description}</p>
+                            <img src={item.images[0]} />
+                            <p>R$ {item.price}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>Nenhum produto encontrado</p>
+                )}
             </div>
 
             <div className={styles.pagination}>
@@ -80,16 +66,11 @@ export const ProductCard = () => {
 
                 <button
                     disabled={page === totalPages}
-                    onClick={() => {
-                        if (page < totalPages) {
-                            setPage((p) => p + 1);
-                        }
-                    }}
+                    onClick={() => setPage(page + 1)}
                 >
                     Próxima
                 </button>
             </div>
-
         </div>
     );
 };

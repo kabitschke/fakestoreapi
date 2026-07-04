@@ -1,48 +1,32 @@
 'use client'
+import { useEffect, useState } from 'react';
 import styles from '@/components/SearchBar.module.css';
-import { Product } from '@/types/product';
-import { useState } from 'react';
-
 
 type Props = {
-    products: Product[];
-    setFiltered: (products: Product[]) => void;
+    setSearch: (value: string) => void;
+    setPage: (value: number) => void;
 };
 
-export const SearchBar = ({ products, setFiltered }: Props) => {
+export const SearchBar = ({ setSearch, setPage }: Props) => {
+    const [value, setValue] = useState("");
 
-    const [searchValue, setSearchValue] = useState('');
+    useEffect(() => {
+        const delay = setTimeout(() => {
+            setPage(1);        // volta pra página 1
+            setSearch(value);  // dispara busca
+        }, 500); // ⏱️ tempo do debounce
 
-
-
-    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            const result = products.filter(item =>
-                item.title.toLowerCase().includes(searchValue.toLowerCase())
-            );
-
-            setFiltered(result);
-        }
-    };
+        return () => clearTimeout(delay);
+    }, [value]);
 
     return (
-
-        <div>
-            <div className={styles.areaInput}>
-                <input
-                    type="text"
-                    placeholder='Busca'
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onKeyDown={handleSearch}
-                />
-
-            </div>
-
-
-
+        <div className={styles.areaInput}>
+            <input
+                type="text"
+                placeholder="Buscar produto..."
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+            />
         </div>
-
-
-    )
-}
+    );
+};
