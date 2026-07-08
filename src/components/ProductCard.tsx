@@ -4,24 +4,26 @@ import styles from "@/components/ProductCard.module.css";
 import { getProducts } from "@/hooks/useFavorites";
 import { SearchBar } from "./SearchBar";
 import { Product, ProductsResponse } from "@/types/product";
+import { CategoryFilter } from "./CategoryFilter";
 
 export const ProductCard = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [listPage, setListPage] = useState<ProductsResponse>();
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
+    const [category, setCategory] = useState("");
 
     const limit = 30;
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getProducts(page, limit, search);
+            const data = await getProducts(page, limit, search, category);
             setProducts(data.products);
             setListPage(data);
         };
 
         fetchData();
-    }, [page, search]);
+    }, [page, search, category]);
 
     const totalPages = listPage
         ? Math.ceil(listPage.total / limit)
@@ -31,11 +33,18 @@ export const ProductCard = () => {
         <div>
             <SearchBar setSearch={setSearch} setPage={setPage} />
 
+
+            <CategoryFilter setCategory={setCategory} />
+
+
+
+
             <div className={styles.container}>
                 {products.length > 0 ? (
                     products.map((item) => (
                         <div key={item.id} className={styles.productCard}>
                             <h2>{item.title}</h2>
+                            <p>{item.category}</p>
                             <p>{item.description}</p>
                             <img src={item.images[0]} />
                             <p>R$ {item.price}</p>
