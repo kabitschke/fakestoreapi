@@ -41,6 +41,17 @@ export const getFilterCategories = async (category: string) => {
 };
 
 
+export const getProductById = async (id: number) => {
+    const res = await fetch(`https://dummyjson.com/products/${id}`);
+
+    if (!res.ok) {
+        throw new Error("Erro ao buscar produto");
+    }
+
+    return res.json();
+};
+
+
 
 const api1 = 'https://fakestoreapi.com/products';
 const api2 = 'https://dummyjson.com/products';

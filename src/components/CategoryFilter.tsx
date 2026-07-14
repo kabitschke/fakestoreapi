@@ -34,16 +34,22 @@ export const CategoryFilter = ({ setCategory }: Props) => {
 
     return (
         <div className={styles.container}>
+            <h3>Filtro Categoria</h3>
             {categories.map((item) => (
-                <label key={item.name}>
-                    <input
-                        type="checkbox"
-                        checked={selected === item.slug}
-                        onChange={() => handleChange(item.slug)}
-                    />
-                    {item.name}
-                </label>
+                <div key={item.name} className={styles.filter}>
+                    <label >
+                        <input
+                            type="checkbox"
+                            checked={selected === item.slug}
+                            onChange={() => handleChange(item.slug)}
+                        />
+                        {item.name}
+                    </label>
+                </div>
             ))}
+
         </div>
+
+
     );
 };

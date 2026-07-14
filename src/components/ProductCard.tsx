@@ -5,6 +5,7 @@ import { getProducts } from "@/hooks/useFavorites";
 import { SearchBar } from "./SearchBar";
 import { Product, ProductsResponse } from "@/types/product";
 import { CategoryFilter } from "./CategoryFilter";
+import Link from "next/link";
 
 export const ProductCard = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -42,13 +43,15 @@ export const ProductCard = () => {
             <div className={styles.container}>
                 {products.length > 0 ? (
                     products.map((item) => (
-                        <div key={item.id} className={styles.productCard}>
-                            <h2>{item.title}</h2>
-                            <p>{item.category}</p>
-                            <p>{item.description}</p>
-                            <img src={item.images[0]} />
-                            <p>R$ {item.price}</p>
-                        </div>
+                        <Link key={item.id} href={`/products/${item.id}`}>
+                            <div className={styles.productCard}>
+                                <h2>{item.title}</h2>
+                                <p>{item.category}</p>
+                                <p>{item.description}</p>
+                                <img src={item.images[0]} />
+                                <p>R$ {item.price}</p>
+                            </div>
+                        </Link>
                     ))
                 ) : (
                     <p>Nenhum produto encontrado</p>
