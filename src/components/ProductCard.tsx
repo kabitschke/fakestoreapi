@@ -6,6 +6,7 @@ import { SearchBar } from "./SearchBar";
 import { Product, ProductsResponse } from "@/types/product";
 import { CategoryFilter } from "./CategoryFilter";
 import Link from "next/link";
+import { Heart } from "lucide-react";
 
 export const ProductCard = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -13,6 +14,7 @@ export const ProductCard = () => {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
+    const [favorites, setFavorites] = useState<number[]>([]);
 
     const limit = 30;
 
@@ -26,6 +28,30 @@ export const ProductCard = () => {
         fetchData();
     }, [page, search, category]);
 
+
+    useEffect(() => {
+        const stored = localStorage.getItem("favorites");
+        if (stored) {
+            setFavorites(JSON.parse(stored));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    }, [favorites]);
+
+    const toggleFavorite = (id: number) => {
+        if (favorites.includes(id)) {
+            // remove dos favoritos
+            const updated = favorites.filter(fav => fav !== id);
+            //mantenha tudo que NÃO é igual ao id clicado filter(fav => fav !== id)
+            setFavorites(updated);
+        } else {
+            // adiciona aos favoritos
+            const updated = [...favorites, id];
+            setFavorites(updated);
+        }
+    };
     const totalPages = listPage
         ? Math.ceil(listPage.total / limit)
         : 0;
@@ -43,15 +69,25 @@ export const ProductCard = () => {
             <div className={styles.container}>
                 {products.length > 0 ? (
                     products.map((item) => (
-                        <Link key={item.id} href={`/products/${item.id}`}>
-                            <div className={styles.productCard}>
+                        <div key={item.id} className={styles.productCard}>
+                            <Heart
+                                onClick={() => toggleFavorite(item.id)}
+                                style={{
+                                    fill: favorites.includes(item.id) ? "red" : "none",
+                                    stroke: "red",
+                                    cursor: "pointer"
+                                }}
+                                className={styles.icon}
+                            />
+
+                            <Link href={`/products/${item.id}`} className={styles.link}>
                                 <h2>{item.title}</h2>
                                 <p>{item.category}</p>
                                 <p>{item.description}</p>
                                 <img src={item.images[0]} />
                                 <p>R$ {item.price}</p>
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                     ))
                 ) : (
                     <p>Nenhum produto encontrado</p>

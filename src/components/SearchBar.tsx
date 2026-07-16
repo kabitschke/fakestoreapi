@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import styles from '@/components/SearchBar.module.css';
+import { Search } from "lucide-react";
 
 type Props = {
     setSearch: (value: string) => void;
@@ -27,6 +28,7 @@ export const SearchBar = ({ setSearch, setPage }: Props) => {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
             />
+            <Search size={24} className={styles.icon} />
         </div>
     );
 };

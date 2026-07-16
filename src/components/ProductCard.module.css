@@ -17,6 +17,25 @@
     border-radius: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
+    position: relative;
+}
+
+.productCard h2 {
+    padding-right: 25px;
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+
+}
+
+
+
+.link {
+    color: black;
+    text-decoration: none;
+
 }
 
 .productCard:hover {
@@ -48,6 +67,7 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
 }
 
 .category {
