@@ -60,6 +60,19 @@ export const ProductCard = () => {
         <div>
             <SearchBar setSearch={setSearch} setPage={setPage} />
 
+            <div className={styles.favorites}>
+
+                <div >
+                    <Heart size={20} className={styles.heartFavorites} />
+                </div>
+
+                <div>
+                    {favorites.length}
+                </div>
+
+            </div>
+
+
 
             <CategoryFilter setCategory={setCategory} />
 
@@ -70,14 +83,11 @@ export const ProductCard = () => {
                 {products.length > 0 ? (
                     products.map((item) => (
                         <div key={item.id} className={styles.productCard}>
+
                             <Heart
                                 onClick={() => toggleFavorite(item.id)}
-                                style={{
-                                    fill: favorites.includes(item.id) ? "red" : "none",
-                                    stroke: "red",
-                                    cursor: "pointer"
-                                }}
-                                className={styles.icon}
+                                className={`${styles.heart} ${favorites.includes(item.id) ? styles.activeHeart : ""
+                                    }`}
                             />
 
                             <Link href={`/products/${item.id}`} className={styles.link}>

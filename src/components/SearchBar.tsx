@@ -21,14 +21,16 @@ export const SearchBar = ({ setSearch, setPage }: Props) => {
     }, [value]);
 
     return (
-        <div className={styles.areaInput}>
+        <div className={styles.wrapper}>
             <input
                 type="text"
                 placeholder="Buscar produto..."
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                className={styles.input}
             />
-            <Search size={24} className={styles.icon} />
+
+            <Search size={24} className={styles.SearchIcon} />
         </div>
     );
 };

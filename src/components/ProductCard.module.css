@@ -20,6 +20,50 @@
     position: relative;
 }
 
+.heart {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    stroke: red;
+    fill: none;
+    transition: all 0.2s ease;
+}
+
+.activeHeart {
+    fill: red;
+    transform: scale(1.2);
+}
+
+.activeHeart {
+    animation: pop 0.3s ease;
+}
+
+.favorites {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 2px;
+}
+
+.heartFavorites {
+    fill: red;
+    stroke: red;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}
+
 .productCard h2 {
     padding-right: 25px;
 }
