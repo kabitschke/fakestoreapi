@@ -58,19 +58,8 @@ export const ProductCard = () => {
 
     return (
         <div>
-            <SearchBar setSearch={setSearch} setPage={setPage} />
 
-            <div className={styles.favorites}>
 
-                <div >
-                    <Heart size={20} className={styles.heartFavorites} />
-                </div>
-
-                <div>
-                    {favorites.length}
-                </div>
-
-            </div>
 
 
 

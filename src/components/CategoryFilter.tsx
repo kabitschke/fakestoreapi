@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import styles from '@/components/CategoryFilter.module.css';
 import { getCategories } from '@/hooks/useFavorites';
+import { Funnel } from 'lucide-react';
 
 type Props = {
     setCategory: (value: string) => void;
@@ -34,17 +35,22 @@ export const CategoryFilter = ({ setCategory }: Props) => {
 
     return (
         <div className={styles.container}>
-            <h3>Filtro Categoria</h3>
+            <div className={styles.filterTitle}>
+                <Funnel size={20} stroke='#2D6DE6' />
+                <h3>Filtro Categoria</h3>
+
+            </div>
             {categories.map((item) => (
                 <div key={item.name} className={styles.filter}>
-                    <label >
-                        <input
-                            type="checkbox"
-                            checked={selected === item.slug}
-                            onChange={() => handleChange(item.slug)}
-                        />
+                    <input
+                        type="checkbox"
+                        checked={selected === item.slug}
+                        onChange={() => handleChange(item.slug)}
+                    />
+                    <label className={styles.label}>
                         {item.name}
                     </label>
+
                 </div>
             ))}
 

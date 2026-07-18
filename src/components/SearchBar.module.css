@@ -1,15 +1,12 @@
 .wrapper {
-    margin-top: 20px;
     position: relative;
     width: 100%;
     max-width: 400px;
-    /* controla tamanho máximo */
 }
 
 .input {
     width: 100%;
     padding: 8px 35px 8px 8px;
-    /* espaço pra lupa */
     border-radius: 8px;
     border: 1px solid #333;
 }
@@ -17,8 +14,7 @@
 .SearchIcon {
     position: absolute;
     right: 10px;
-    /* fica sempre colado à direita */
     top: 50%;
     transform: translateY(-50%);
-    color: #ccc;
+    color: #7191E0;
 }

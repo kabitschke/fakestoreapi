@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Teste Front-End",
-  description: "teste nextjs front-end",
+  title: "ShopHub - Your Ultimate Shopping Companion",
+  description: "ShopHub is your ultimate shopping companion, offering a seamless and personalized shopping experience. Discover a wide range of products, manage your favorites, and explore categories with ease. Shop smarter and faster with ShopHub.",
 };
 
 export default function RootLayout({
@@ -23,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html lang="pt">
+      <body className={roboto.className}>{children}</body>
     </html>
   );
 }
