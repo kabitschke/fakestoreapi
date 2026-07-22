@@ -11,6 +11,11 @@
     border: 1px solid #333;
 }
 
+input:focus {
+    border: 1px solid #3b82f6;
+    outline: 1px solid #1e72f9;
+}
+
 .SearchIcon {
     position: absolute;
     right: 10px;

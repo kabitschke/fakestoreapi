@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from '../[id]/page.module.css';
 import { getProductById } from "@/hooks/useFavorites";
+import { Star } from 'lucide-react';
 
 type Props = {
     params: {
@@ -13,6 +14,9 @@ export default async function ProductDetails({ params }: Props) {
     const { id } = await params;
     const product = await getProductById(id);
 
+    const maxStars = 5;
+    const rating = product.rating;
+
     return (
         <div className={styles.container}>
             <Link href={'/'}>Voltar</Link>
@@ -22,7 +26,15 @@ export default async function ProductDetails({ params }: Props) {
                 <p>{product.description}</p>
                 <p>Categoria: {product.category}</p>
                 <p>Preço: R$ {product.price}</p>
-                <p>Rating: {product.rating}</p>
+                {Array.from({ length: maxStars }, (_, index) => (
+                    <Star
+                        key={index}
+                        size={20}
+                        fill={index < product.rating ? "gold" : "none"}
+                        color="gold"
+                    />
+                ))}
+
             </div>
 
         </div>
