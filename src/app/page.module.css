@@ -11,7 +11,7 @@
     background-color: #FFF;
     border-radius: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 10px 20px;
     z-index: 999;
 }
 
@@ -106,16 +106,24 @@
 }
 
 .heart {
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+}
+
+.heartArea {
     position: absolute;
     right: 10px;
-    cursor: pointer;
-    stroke: red;
-    fill: none;
-    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .activeHeart {
     fill: red;
+    stroke: red;
     transform: scale(1.2);
 }
 
@@ -172,10 +180,10 @@
 }
 
 .price {
-    text-align: center;
     font-weight: bold;
     font-size: 1rem;
     color: #2D6DE6;
+    margin-top: 0.625rem;
 }
 
 .description {
@@ -190,7 +198,7 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
-
+    margin-top: 0.625rem;
 }
 
 .category {

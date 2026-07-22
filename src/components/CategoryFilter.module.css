@@ -1,18 +1,20 @@
 .container {
     position: fixed;
-    top: 90px;
+    top: 65px;
     left: 20px;
+
     display: flex;
     flex-direction: column;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 10px;
+
 }
 
 .filterTitle {
     display: flex;
     gap: 4px;
-
+    margin-bottom: 5px;
 }
 
 .filterTitle h3 {
@@ -27,15 +29,13 @@
     cursor: pointer;
     margin-left: 4px;
     width: 0.625rem;
-
 }
 
 .label {
-    font-size: .7rem;
+    font-size: .6rem;
 }
 
 .filter {
-    margin-top: 4px;
     display: flex;
     gap: 4px;
 }

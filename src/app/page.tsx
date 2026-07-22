@@ -8,6 +8,7 @@ import { CategoryFilter } from "@/components/CategoryFilter";
 import Link from "next/link";
 import { Carrot, Heart, ShoppingCart } from "lucide-react";
 import { Handbag } from 'lucide-react';
+import { Footer } from '@/components/Footer';
 
 
 export default function Home() {
@@ -113,18 +114,22 @@ export default function Home() {
           {products.length > 0 ? (
             products.map((item) => (
               <div key={item.id} className={styles.productCard}>
+                <div className={styles.heartArea}>
 
-                <Heart
-                  onClick={() => toggleFavorite(item.id)}
-                  className={`${styles.heart} ${favorites.includes(item.id) ? styles.activeHeart : ""
-                    }`}
-                />
+                  <Heart
+                    size={14}
+                    onClick={() => toggleFavorite(item.id)}
+                    className={`${styles.heart} ${favorites.includes(item.id) ? styles.activeHeart : ""
+                      }`}
+                  />
+                </div>
 
                 <Link href={`/products/${item.id}`} className={styles.link}>
-                  <h2>{item.title}</h2>
-                  <p className={styles.category}>{item.category}</p>
-                  {/* <p>{item.description}</p> */}
+
+
                   <img src={item.images[0]} />
+                  <p className={styles.category}>{item.category}</p>
+                  <h2 className={styles.title}>{item.title}</h2>
                   <p className={styles.price}>R$ {item.price}</p>
                 </Link>
               </div>
@@ -162,8 +167,11 @@ export default function Home() {
 
 
 
+
+
       </div>
 
+      <Footer />
     </>
 
 
