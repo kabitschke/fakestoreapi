@@ -35,3 +35,14 @@
     gap: 20px;
     color: rgba(0, 0, 0, 0.8);
 }
+
+@media (max-width: 600px) {
+    .footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .social {
+        margin: 0 auto;
+    }
+}

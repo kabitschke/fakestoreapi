@@ -38,6 +38,10 @@
     gap: 4px;
 }
 
+.heartFavorites {
+    margin-left: 20px;
+}
+
 .itemFavoritos,
 .itemCart {
     display: flex;
@@ -221,4 +225,23 @@
     cursor: pointer;
     border-radius: 4px;
     border: none;
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container {
+        margin: 0 20px;
+    }
+
+    .containerProduto {
+        margin-top: 0px;
+    }
+
+    .pagination {
+        padding-top: 40px;
+    }
 }

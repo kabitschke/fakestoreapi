@@ -2,17 +2,72 @@
 import { useEffect, useState } from 'react';
 import styles from '@/components/CategoryFilter.module.css';
 import { getCategories } from '@/hooks/useFavorites';
-import { Funnel } from 'lucide-react';
+import {
+    MirrorRound,
+    Shirt,
+    Smartphone,
+    Lamp,
+    Watch,
+    Glasses,
+    Home,
+    Laptop,
+    Car,
+    Gem,
+    ShoppingBag,
+    Footprints,
+    CookingPot,
+    Package,
+    SmartphoneIcon,
+    MotorbikeIcon,
+    Dumbbell,
+
+} from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 type Props = {
     setCategory: (value: string) => void;
 };
 
+type CategorySlug = "beauty" | "fragrances" | "furniture" | "clothes" | "electronics" | "groceries"
+    | "home-decoration" | "kitchen-accessories" | "laptops" | "mens-shirts" | "mens-shoes" | "mens-watches"
+    | "mobile-accessories" | "motorcycle" | "skin-care" | "smartphones" | "sports-accessories"
+    | "sunglasses" | "tablets" | "tops" | "vehicle" | "womens-bags" | "womens-dresses"
+    | "womens-jewellery" | "womens-shoes" | "womens-watches";
+
 type Categories = {
-    slug: string;
+    slug: CategorySlug;
     name: string;
     url: string;
 }
+
+const iconMap = {
+    beauty: MirrorRound,
+    fragrances: MirrorRound,
+    furniture: Lamp,
+    clothes: Shirt,
+    electronics: Smartphone,
+    smartphones: Smartphone,
+    groceries: Package,
+    "home-decoration": Home,
+    "kitchen-accessories": CookingPot,
+    laptops: Laptop,
+    "mens-shirts": Shirt,
+    "mens-watches": Watch,
+    sunglasses: Glasses,
+    tablets: Smartphone,
+    tops: Shirt,
+    vehicle: Car,
+    "womens-bags": ShoppingBag,
+    "womens-dresses": Shirt,
+    "womens-jewellery": Gem,
+    "womens-shoes": Footprints,
+    "womens-watches": Watch,
+    "mens-shoes": Footprints,
+    "mobile-accessories": SmartphoneIcon,
+    "motorcycle": MotorbikeIcon,
+    "skin-care": MirrorRound,
+    "sports-accessories": Dumbbell
+};
 
 export const CategoryFilter = ({ setCategory }: Props) => {
     const [categories, setCategories] = useState<Categories[]>([]);
@@ -33,29 +88,32 @@ export const CategoryFilter = ({ setCategory }: Props) => {
         setCategory(newValue);
     };
 
+
+    //const Icon = iconMap[item.slug];
+
+
     return (
-        <div className={styles.container}>
-            <div className={styles.filterTitle}>
-                <Funnel size={20} stroke='#2D6DE6' />
-                <h3>Filtro Categoria</h3>
+        <div className={styles.containerMobile}>
+            {categories.map((item) => {
+                const Icon = iconMap[item.slug];
 
-            </div>
-            {categories.map((item) => (
-                <div key={item.name} className={styles.filter}>
-                    <input
-                        type="checkbox"
-                        checked={selected === item.slug}
-                        onChange={() => handleChange(item.slug)}
-                    />
-                    <label className={styles.label}>
-                        {item.name}
-                    </label>
-
-                </div>
-            ))}
-
+                return (
+                    <div
+                        key={item.name}
+                        className={styles.filter}
+                        onClick={() => handleChange(item.slug)}
+                    >
+                        <div className={styles.areaCategory}>
+                            <div className={styles.areaIcon}>
+                                {Icon && <Icon size={15} />}
+                            </div>
+                            {item.name}
+                        </div>
+                    </div>
+                );
+            })}
         </div>
-
-
     );
-};
+
+
+}
