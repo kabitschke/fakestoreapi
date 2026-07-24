@@ -93,25 +93,27 @@ export const CategoryFilter = ({ setCategory }: Props) => {
 
 
     return (
-        <div className={styles.containerMobile}>
-            {categories.map((item) => {
-                const Icon = iconMap[item.slug];
+        <div className={styles.wrapper}>
+            <div className={styles.containerMobile}>
+                {categories.map((item) => {
+                    const Icon = iconMap[item.slug] ?? Package;
 
-                return (
-                    <div
-                        key={item.name}
-                        className={styles.filter}
-                        onClick={() => handleChange(item.slug)}
-                    >
-                        <div className={styles.areaCategory}>
-                            <div className={styles.areaIcon}>
-                                {Icon && <Icon size={15} />}
+                    return (
+                        <div
+                            key={item.name}
+                            className={styles.filter}
+                            onClick={() => handleChange(item.slug)}
+                        >
+                            <div className={styles.areaCategory}>
+                                <div className={styles.areaIcon}>
+                                    <Icon size={16} />
+                                </div>
+                                {item.name}
                             </div>
-                            {item.name}
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+            </div>
         </div>
     );
 
