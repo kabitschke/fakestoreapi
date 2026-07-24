@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from '@/components/CategoryFilter.module.css';
 import { getCategories } from '@/hooks/useFavorites';
 import {
@@ -17,12 +17,13 @@ import {
     Footprints,
     CookingPot,
     Package,
+    ChevronLeft,
+    ChevronRight,
     SmartphoneIcon,
     MotorbikeIcon,
     Dumbbell,
-
 } from "lucide-react";
-import { LucideIcon } from "lucide-react";
+
 
 type Props = {
     setCategory: (value: string) => void;
@@ -70,6 +71,7 @@ const iconMap = {
 };
 
 export const CategoryFilter = ({ setCategory }: Props) => {
+
     const [categories, setCategories] = useState<Categories[]>([]);
     const [selected, setSelected] = useState<string>("");
 
@@ -88,13 +90,38 @@ export const CategoryFilter = ({ setCategory }: Props) => {
         setCategory(newValue);
     };
 
+    const scrollRef = useRef<HTMLDivElement>(null);
 
-    //const Icon = iconMap[item.slug];
+    const scroll = (direction: "left" | "right") => {
+        if (!scrollRef.current) return;
+
+        const { current } = scrollRef;
+
+        const scrollAmount = 200;
+
+        current.scrollBy({
+            left: direction === "left" ? -scrollAmount : scrollAmount,
+            behavior: "smooth",
+        });
+    };
+
+
+
 
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.containerMobile}>
+
+            {/* botão esquerdo */}
+            <button
+                className={`${styles.navButton} ${styles.left}`}
+                onClick={() => scroll("left")}
+            >
+                <ChevronLeft size={18} />
+            </button>
+
+            {/* scroll */}
+            <div ref={scrollRef} className={styles.containerMobile}>
                 {categories.map((item) => {
                     const Icon = iconMap[item.slug] ?? Package;
 
@@ -114,8 +141,15 @@ export const CategoryFilter = ({ setCategory }: Props) => {
                     );
                 })}
             </div>
+
+            {/* botão direito */}
+            <button
+                className={`${styles.navButton} ${styles.right}`}
+                onClick={() => scroll("right")}
+            >
+                <ChevronRight size={18} />
+            </button>
+
         </div>
     );
-
-
-}
+};
