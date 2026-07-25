@@ -15,6 +15,8 @@
     z-index: 999;
 }
 
+
+
 .logo {
     display: flex;
     align-items: center;
@@ -86,6 +88,8 @@
 .container {
     max-width: 100%;
     margin: 0 20px 0 200px;
+    min-height: calc(100vh - 112px);
+    /**Footer sempre no fim**/
 }
 
 .containerProduto {
