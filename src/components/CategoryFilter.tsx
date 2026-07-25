@@ -22,6 +22,7 @@ import {
     SmartphoneIcon,
     MotorbikeIcon,
     Dumbbell,
+    Filter,
 } from "lucide-react";
 
 
@@ -105,51 +106,71 @@ export const CategoryFilter = ({ setCategory }: Props) => {
         });
     };
 
-
-
-
-
     return (
-        <div className={styles.wrapper}>
+        <>
+            <div className={styles.container}>
+                <div className={styles.areaTitle}>
+                    <Filter size={20} stroke='#2D6DE6' />
 
-            {/* botão esquerdo */}
-            <button
-                className={`${styles.navButton} ${styles.left}`}
-                onClick={() => scroll("left")}
-            >
-                <ChevronLeft size={18} />
-            </button>
+                    <h3 className={styles.h3}>Filtro Categoria</h3>
+                </div>
+                {categories.map((item) => (
+                    <div key={item.name} className={styles.filterDesktop}>
+                        <label className={styles.label}>
+                            <input
+                                type="checkbox"
+                                checked={selected === item.slug}
+                                onChange={() => handleChange(item.slug)}
+                                className={styles.input}
+                            />
+                            {item.name}
+                        </label>
+                    </div>
+                ))}
 
-            {/* scroll */}
-            <div ref={scrollRef} className={styles.containerMobile}>
-                {categories.map((item) => {
-                    const Icon = iconMap[item.slug] ?? Package;
-
-                    return (
-                        <div
-                            key={item.name}
-                            className={styles.filter}
-                            onClick={() => handleChange(item.slug)}
-                        >
-                            <div className={styles.areaCategory}>
-                                <div className={styles.areaIcon}>
-                                    <Icon size={16} />
-                                </div>
-                                {item.name}
-                            </div>
-                        </div>
-                    );
-                })}
             </div>
 
-            {/* botão direito */}
-            <button
-                className={`${styles.navButton} ${styles.right}`}
-                onClick={() => scroll("right")}
-            >
-                <ChevronRight size={18} />
-            </button>
+            <div className={styles.wrapper}>
 
-        </div>
+                {/* botão esquerdo */}
+                <button
+                    className={`${styles.navButton} ${styles.left}`}
+                    onClick={() => scroll("left")}
+                >
+                    <ChevronLeft size={18} />
+                </button>
+
+                {/* scroll */}
+                <div ref={scrollRef} className={styles.containerMobile}>
+                    {categories.map((item) => {
+                        const Icon = iconMap[item.slug] ?? Package;
+
+                        return (
+                            <div
+                                key={item.name}
+                                className={styles.filter}
+                                onClick={() => handleChange(item.slug)}
+                            >
+                                <div className={styles.areaCategory}>
+                                    <div className={styles.areaIcon}>
+                                        <Icon size={16} />
+                                    </div>
+                                    {item.name}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                {/* botão direito */}
+                <button
+                    className={`${styles.navButton} ${styles.right}`}
+                    onClick={() => scroll("right")}
+                >
+                    <ChevronRight size={18} />
+                </button>
+
+            </div>
+        </>
     );
 };
